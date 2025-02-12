@@ -1,40 +1,86 @@
 {
-  "position": "top",
-  "modules-left": ["hyprland/workspaces"],
-  "modules-center": ["hyprland/window"],
-  "modules-right": ["network", "pulseaudio", "battery", "clock"],
-  "clock": {
-    "format": "<span foreground='#f5c2e7'>   </span>{:%a %d %H:%M}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-  },
-  "battery": {
-    "states": {
-      "warning": 30,
-      "critical": 15
+  "margin-top" : 5,
+    "margin-left": 10,
+    "margin-right": 10,
+    "height" : 30,
+    "modules-left": [
+      "hyprland/workspaces"
+    ],
+    "modules-center": [
+      "hyprland/window",
+    ],
+    "modules-right": [
+    "custom/spotify",
+    "pulseaudio",
+    "network",
+    "memory",
+    "temperature",
+    "cpu",
+    "clock",
+    ],
+    "hyprland/window": {
+      "format": "{}",
+      "max-length": 35,
+      "separate-outputs": true,
     },
-    "format": "<span size='13000' foreground='#a6e3a1'>{icon} </span> {capacity}%",
-    "format-warning": "<span size='13000' foreground='#B1E3AD'>{icon} </span> {capacity}%",
-    "format-critical": "<span size='13000' foreground='#E38C8F'>{icon} </span> {capacity}%",
-    "format-charging": "<span size='13000' foreground='#B1E3AD'> </span>{capacity}%",
-    "format-plugged": "<span size='13000' foreground='#B1E3AD'> </span>{capacity}%",
-    "format-alt": "<span size='13000' foreground='#B1E3AD'>{icon} </span> {time}",
-    "format-full": "<span size='13000' foreground='#B1E3AD'> </span>{capacity}%",
-    "format-icons": ["", "", "", "", ""],
-    "tooltip-format": "{time}"
-  },
-  "network": {
-    "format-wifi": "<span size='13000' foreground='#f5e0dc'>  </span>{essid}",
-    "format-ethernet": "<span size='13000' foreground='#f5e0dc'>󰤭  </span> Disconnected",
-    "format-linked": "{ifname} (No IP) ",
-    "format-disconnected": "<span size='13000' foreground='#f5e0dc'>  </span>Disconnected",
-    "tooltip-format-wifi": "Signal Strenght: {signalStrength}%"
-  },
-  "pulseaudio": {
+    "hyprland/workspaces": {
+      "on-click": "activate",
+      "sort-by-number": true,
+    },
+    "clock": {
+      "format": "{:%I:%M %p}",
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+      "format-alt": "{:%Y-%m-%d}"
+    },
+    "cpu": {
+      "format": "{icon} {usage}%",
+      "format-icons": [""],
+      "tooltip": false
+    },
+    "memory": {
+      "format": "{}%  "
+    },
+    "temperature": {
+      "critical-threshold": 80,
+      "format": "{icon} {temperatureC}°C",
+      "format-icons": ["", "", ""]
+    },
+    "network": {
+      "format-wifi": "  {signalStrength}%",
+      "format-ethernet": "{cidr} ",
+      "tooltip-format": "{ifname} via {gwaddr} ",
+      "format-linked": "{ifname} (No IP) ",
+      "format-disconnected": " ⚠ ",
+      "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "pulseaudio": {
       "format": "{icon}  {volume}%",
-      "format-muted": "",
+      "format-bluetooth": "{volume}% {icon} {format_source}",
+      "format-bluetooth-muted": " {icon} {format_source}",
+      "format-muted": "",
       "format-icons": {
-          "default": ["", "", " "]
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": ["", "", ""]
       },
       "on-click": "pavucontrol"
-  }
+    },
+    "custom/spotify":{
+      "exec": "/usr/bin/python3 ~/.config/waybar/custom/mediaplayer.py --player spotify",
+      "format": " {}",
+      "max-length": 40,
+      "return-type": "json",
+      "on-double-click": "playerctl play-pause",
+      "menu": "on-click",
+      "menu-file": "~/.config/waybar/custom/mediamenu.xml",
+      "menu-actions": {
+        "play-pause": "playerctl play-pause",
+        "next": "playerctl next",
+        "prev": "playerctl previous",
+      },
+    }
 }
