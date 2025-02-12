@@ -34,8 +34,7 @@
     },
     "cpu": {
       "format": "{icon} {usage}%",
-      "format-icons": [""],
-      "tooltip": false
+      "format-icons": [""], 
     },
     "memory": {
       "format": "{}%  "
@@ -70,6 +69,7 @@
       "on-click": "pavucontrol"
     },
     "custom/spotify":{
+      "exec-if": "pgrep spotify",
       "exec": "/usr/bin/python3 ~/.config/waybar/custom/mediaplayer.py --player spotify",
       "format": " {}",
       "max-length": 40,
