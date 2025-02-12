@@ -74,13 +74,13 @@
       "format": " {}",
       "max-length": 40,
       "return-type": "json",
-      "on-double-click": "playerctl play-pause",
-      "menu": "on-click",
+      "on-click": "playerctl -p spotify play-pause",
+      "menu": "on-click-right",
       "menu-file": "~/.config/waybar/custom/mediamenu.xml",
       "menu-actions": {
-        "play-pause": "playerctl play-pause",
-        "next": "playerctl next",
-        "prev": "playerctl previous",
+        "play-pause": "playerctl -p spotify play-pause",
+        "next": "playerctl -p spotify next",
+        "prev": "playerctl -p spotify previous",
       },
     }
 }
