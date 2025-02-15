@@ -5,9 +5,17 @@ DIR="$HOME/.config/hypr/artwork"
 CURRENT_ART="$DIR/current_album_art.jpg"
 NEW_ART="$DIR/new_album_art.jpg"
 CURRENT_URL_FILE="$DIR/current_album_art_url.txt"
+EMPTY="$DIR/empty.png"
 
 # Get the album art URL from Spotify using playerctl
-ALBUM_ART_URL=$(playerctl metadata mpris:artUrl)
+ALBUM_ART_URL=$(playerctl -p spotify metadata mpris:artUrl 2> /dev/null)
+
+if [ -z "$ALBUM_ART_URL" ]; then
+    rm -f "$CURRENT_ART"
+    rm -f "$CURRENT_URL_FILE"
+    echo "$EMPTY"
+    exit 0
+fi
 
 # Check if the current URL file exists
 if [ -f "$CURRENT_URL_FILE" ]; then

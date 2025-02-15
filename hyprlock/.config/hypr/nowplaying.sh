@@ -36,7 +36,12 @@ while getopts "$optspec" optchar; do
     esac
 done
 
-metadata="$(playerctl -p spotify metadata)"
+metadata="$(playerctl -p spotify metadata 2> /dev/null)"
+
+if [ -z "$metadata" ]; then
+    exit 1
+fi
+
 artist_name=$(echo "$metadata" | grep -oP 'xesam:artist\s+\K.*')
 track_name=$(echo "$metadata" | grep -oP 'xesam:title\s+\K.*')
 album_name=$(echo "$metadata" | grep -oP 'xesam:album\s+\K.*')
@@ -49,7 +54,7 @@ if [[ "$all" = true ]]; then
 fi
 
 if [[ "$artist" = true ]]; then
-    echo "$artist_name"
+    echo " $artist_name"
 fi
 
 if [[ "$track" = true ]]; then
@@ -57,5 +62,5 @@ if [[ "$track" = true ]]; then
 fi
 
 if [[ "$album" = true ]]; then
-    echo "$album_name"
+    echo "󰀥 $album_name"
 fi
