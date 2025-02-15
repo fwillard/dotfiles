@@ -29,6 +29,8 @@
     orange: #fe8019;
 
     background-color: @bgH;
+
+    
 }
 
 window {
@@ -38,6 +40,8 @@ window {
     border: 1;
     border-radius: 10;
     border-color: @bgS;
+
+    font: "MesloLGS Nerd Font 12";
 }
 
 mainbox {
